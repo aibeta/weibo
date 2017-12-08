@@ -1,8 +1,9 @@
 {
     "name": "weibo",
     "displayName": "weibo",
-    "description": "",
+    "description": "发一条微博",
     "version": "0.0.1",
+    "icon": "weibo.svg",
     "publisher": "weibo",
     "engines": {
         "vscode": "^1.18.0"
@@ -11,14 +12,14 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "*"
     ],
     "main": "./extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.sayHello",
-                "title": "Hello World"
+                "command": "weibo.post",
+                "title": "wb: Post a weibo"
             }
         ]
     },

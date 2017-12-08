@@ -4,25 +4,18 @@ function activate(context) {
     console.log(' "weibo" is now active!')
 
     let statusBarItemMain = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 6)
-    statusBarItemMain.text = 'Weibo'
+    statusBarItemMain.text = '$(flame)'
     statusBarItemMain.tooltip = '发一条微博'
-    statusBarItemMain.command = 'post'
+    statusBarItemMain.command = 'weibo.post'
     statusBarItemMain.show()
 
-    let disposable = vscode.commands.registerCommand('extension.sayHello', function () {
-        vscode.window.showTextDocument({
-            value: 'value',
-            prompt: 'prompt'
-        })
-    })
-
-    let disposable1 = vscode.commands.registerCommand('post', function () {
-        let url = `https://m.weibo.cn/compose?content=${(this.content)}`
-        vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(url))
-    })
-
-    vscode.window.onDidChangeTextEditorSelection(function(e) {
-        const document = e.textEditor.document
+    let disposable = vscode.commands.registerCommand('weibo.post', function () {
+        const editor = vscode.window.activeTextEditor
+        if(!editor) {
+            vscode.window.showInformationMessage('没有有效窗口')
+            return
+        }
+        const document = vscode.window.activeTextEditor.document
         const lineCount = document.lineCount
         let content = ""
         if(lineCount > 0) {
@@ -30,11 +23,11 @@ function activate(context) {
                 content += encodeURI(document.lineAt(i).text) + "%0A"
             }
         }
-        this.content = content
+        const url = `https://m.weibo.cn/compose?content=${(content)}`
+        vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(url))
     })
     
     context.subscriptions.push(disposable)
-    context.subscriptions.push(disposable1)
 }
 exports.activate = activate
 
