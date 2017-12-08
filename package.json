@@ -3,8 +3,8 @@
     "displayName": "weibo",
     "description": "发一条微博",
     "version": "0.0.1",
-    "icon": "weibo.svg",
-    "publisher": "weibo",
+    "icon": "weibo.png",
+    "publisher": "dptp",
     "engines": {
         "vscode": "^1.18.0"
     },
